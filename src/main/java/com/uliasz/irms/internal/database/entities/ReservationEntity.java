@@ -2,6 +2,8 @@ package com.uliasz.irms.internal.database.entities;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.Date;
 
 @Entity
 //@Table(name = "reservations")
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationEntity {
@@ -26,12 +30,10 @@ public class ReservationEntity {
     @Temporal(TemporalType.TIME)
     private Date timeTo;
     private String status;
-    /****/
     @OneToOne
     private AppUserEntity user;
     @OneToOne
     private VisitDetailsEntity visitDetails;
     @OneToOne
     private PersonalDataEntity personalData;
-
 }

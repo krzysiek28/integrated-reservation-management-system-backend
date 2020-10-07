@@ -1,4 +1,4 @@
-package com.uliasz.irms.internal.models;
+package com.uliasz.irms.internal.common.enums;
 
 public enum VisitStatus {
     REALIZED, UNREALIZED, CANCELED

@@ -3,12 +3,16 @@ package com.uliasz.irms.internal.database.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 //@Table(name = "users")
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppUserEntity {
@@ -25,5 +29,4 @@ public class AppUserEntity {
     @JsonIgnoreProperties
     private String role;
     private Boolean enabled;
-
 }
