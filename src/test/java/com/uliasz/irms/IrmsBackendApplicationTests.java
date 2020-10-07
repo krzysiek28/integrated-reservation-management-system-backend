@@ -1,4 +1,4 @@
-package com.uliasz.irmsbackend;
+package com.uliasz.irms;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
