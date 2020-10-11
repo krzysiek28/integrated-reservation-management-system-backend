@@ -2,13 +2,13 @@ package com.uliasz.irms.internal.common.providers;
 
 import com.uliasz.irms.internal.common.converters.ReservationConverter;
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
+import com.uliasz.irms.internal.common.exceptions.ReservationNotFoundException;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import com.uliasz.irms.internal.database.entities.ReservationEntity;
 import com.uliasz.irms.internal.database.repositories.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +22,7 @@ public class ReservationProvider {
     public ReservationModel getReservationById(Long id) {
         Optional<ReservationEntity> reservation = reservationRepository.findById(id);
         return reservation.map(ReservationConverter::convertToModel)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Reservation not found, id %d", id)));
+                .orElseThrow(() -> new ReservationNotFoundException(id));
     }
 
     public List<ReservationModel> getReservationsByDate(Date date) {
@@ -37,6 +37,10 @@ public class ReservationProvider {
         return reservations.stream()
                 .map(ReservationConverter::convertToModel)
                 .collect(Collectors.toList());
+    }
+
+    public boolean reservationIsAvailable(Long id) {
+        return ReservationStatus.AVAILABLE.equals(getReservationById(id).getStatus());
     }
 
 //    public List<ReservationModel> getAvailableReservationsInMonth(Month month) {
