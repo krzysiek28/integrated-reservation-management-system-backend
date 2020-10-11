@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-//@Table(name = "reservations")
+@Table(name = "reservations")
 @Data
 @Builder
 @AllArgsConstructor
@@ -29,6 +29,7 @@ public class ReservationEntity {
     @Column
     @Temporal(TemporalType.TIME)
     private Date timeTo;
+    @Column(nullable = false)
     private String status;
     @OneToOne
     private AppUserEntity user;
