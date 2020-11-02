@@ -14,6 +14,7 @@ public class ReservationModel {
     private Date timeFrom;
     private Date timeTo;
     private ReservationStatus status;
+    private String comment;
     private AppUserModel user;
     private VisitDetailsModel visitDetails;
     private PersonalDataModel personalData;

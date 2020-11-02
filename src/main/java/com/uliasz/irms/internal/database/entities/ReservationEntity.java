@@ -31,6 +31,7 @@ public class ReservationEntity {
     private Date timeTo;
     @Column(nullable = false)
     private String status;
+    private String comment;
     @OneToOne
     private AppUserEntity user;
     @OneToOne
