@@ -25,7 +25,7 @@ public class ReservationDataAccessService {
         return reservations.stream().map(this::createReservation).collect(Collectors.toList());
     }
 
-    private ReservationModel createReservation(ReservationModel reservationModel) {
+    public ReservationModel createReservation(ReservationModel reservationModel) {
         return ReservationConverter.convertToModel(reservationRepository.save(ReservationConverter.convertToEntity(reservationModel)));
     }
 

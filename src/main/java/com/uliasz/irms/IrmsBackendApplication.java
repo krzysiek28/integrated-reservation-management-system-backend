@@ -1,4 +1,4 @@
-package com.uliasz.irms.runner;
+package com.uliasz.irms;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

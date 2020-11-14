@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/adminReservationsApi")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AdminReservationController {
 
@@ -20,14 +21,13 @@ public class AdminReservationController {
         return ResponseEntity.ok(adminReservationService.getReservationsByDate(date));
     }
 
+    @PostMapping(value = "/reservation")
+    public ResponseEntity<ReservationModel> addReservation(@RequestBody ReservationModel reservation) {
+        return ResponseEntity.ok(adminReservationService.addReservation(reservation));
+    }
+
     @PostMapping(value = "/reservations")
     public ResponseEntity<List<ReservationModel>> addReservations(@RequestBody List<ReservationModel> reservations) {
         return ResponseEntity.ok(adminReservationService.addReservations(reservations));
-    }
-
-    @DeleteMapping(value = "/reservations/{id}")
-    public ResponseEntity<Long> deleteReservation(@PathVariable Long id) {
-        adminReservationService.deleteReservation(id);
-        return ResponseEntity.ok(id);
     }
 }

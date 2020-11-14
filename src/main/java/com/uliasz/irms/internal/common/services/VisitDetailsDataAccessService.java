@@ -3,7 +3,6 @@ package com.uliasz.irms.internal.common.services;
 import com.uliasz.irms.internal.common.converters.VisitDetailsConverter;
 import com.uliasz.irms.internal.common.exceptions.ReservationNotFoundException;
 import com.uliasz.irms.internal.common.models.VisitDetailsModel;
-import com.uliasz.irms.internal.common.providers.ReservationProvider;
 import com.uliasz.irms.internal.database.entities.ReservationEntity;
 import com.uliasz.irms.internal.database.entities.VisitDetailsEntity;
 import com.uliasz.irms.internal.database.repositories.ReservationRepository;

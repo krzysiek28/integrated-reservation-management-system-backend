@@ -32,6 +32,13 @@ public class ReservationProvider {
                 .collect(Collectors.toList());
     }
 
+    public List<ReservationModel> getAvailableReservationsByDateRange(Date startDate, Date endDate) {
+        List<ReservationEntity> reservations = reservationRepository.findByDateAfterAndDateBeforeAndStatus(startDate, endDate, ReservationStatus.AVAILABLE.name());
+        return reservations.stream()
+                .map(ReservationConverter::convertToModel)
+                .collect(Collectors.toList());
+    }
+
     public List<ReservationModel> getAvailableReservationsByDate(Date date) {
         List<ReservationEntity> reservations = reservationRepository.findByDateAndStatus(date, ReservationStatus.AVAILABLE.name());
         return reservations.stream()

@@ -17,11 +17,20 @@ public class ReservationService {
     private final ReservationDataAccessService reservationDataAccessService;
     private final ReservationProvider reservationProvider;
 
-    public List<ReservationModel> getAvailableReservationsByDate(Date date) {
-        return reservationProvider.getAvailableReservationsByDate(date);
+    public List<ReservationModel> getAvailableReservationsByDateRange(Date startDate, Date endDate) {
+        return reservationProvider.getAvailableReservationsByDateRange(startDate, endDate);
     }
 
     public ReservationModel updateReservationStatus(Long reservationId, ReservationStatus status) {
         return reservationDataAccessService.updateReservationStatus(reservationId, status);
     }
+
+    /**
+     * Delete reservation from database.
+     * @param id
+     */
+    public void deleteReservation(Long id) {
+        reservationDataAccessService.deleteReservation(id);
+    }
+
 }

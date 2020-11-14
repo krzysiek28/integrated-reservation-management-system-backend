@@ -1,4 +1,4 @@
-package com.uliasz.irms.runner;
+package com.uliasz.irms;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
     @Value("${spring.datasource.driver-class-name}")
     private String driverClass;
-    @Value("${spring.datasource.data-username}")
+    @Value("${spring.datasource.url}")
     private String url;
     @Value("${spring.datasource.data-username}")
     private String userName;

@@ -20,11 +20,21 @@ public class AdminReservationService {
         return reservationProvider.getReservationsByDate(date);
     }
 
-    public List<ReservationModel> addReservations(List<ReservationModel> reservations) {
-        return reservationDataAccessService.createReservations(reservations);
+    /**
+     * Add single reservation
+     * @param reservation - represented by ReservationModel
+     * @return added reservation model on success
+     */
+    public ReservationModel addReservation(ReservationModel reservation) {
+        return reservationDataAccessService.createReservation(reservation);
     }
 
-    public void deleteReservation(Long id) {
-        reservationDataAccessService.deleteReservation(id);
+    /**
+     * Add collection of reservations
+     * @param reservations - collection of ReservationModel
+     * @return added collection of reservations on success
+     */
+    public List<ReservationModel> addReservations(List<ReservationModel> reservations) {
+        return reservationDataAccessService.createReservations(reservations);
     }
 }

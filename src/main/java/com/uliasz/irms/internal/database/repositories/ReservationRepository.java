@@ -12,4 +12,5 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 
     List<ReservationEntity> findByDate(Date date);
     List<ReservationEntity> findByDateAndStatus(Date date, String status);
+    List<ReservationEntity> findByDateAfterAndDateBeforeAndStatus(Date startDate, Date endDate, String status);
 }
