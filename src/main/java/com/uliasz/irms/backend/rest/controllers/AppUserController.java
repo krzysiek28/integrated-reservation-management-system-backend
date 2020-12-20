@@ -1,5 +1,6 @@
-package com.uliasz.irms.backend.users;
+package com.uliasz.irms.backend.rest.controllers;
 
+import com.uliasz.irms.backend.rest.services.AppUserService;
 import com.uliasz.irms.internal.database.entities.AppUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usersApi")
-@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 @Slf4j
 public class AppUserController {
@@ -20,6 +20,17 @@ public class AppUserController {
      * to do remove - update
      */
     private final AppUserService appUserService;
+
+
+
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<Boolean> loginUser(@RequestParam String login, @RequestParam String password) {
+        return ResponseEntity.ok(true);
+    }
+
+
+
 
     @GetMapping(value = "/users")
     public ResponseEntity<List<AppUserEntity>> getAllUsers() {

@@ -24,6 +24,7 @@ public class AppUserEntity {
     private String login;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    private String email;
     @OneToOne
     private PersonalDataEntity personalData;
     @JsonIgnoreProperties

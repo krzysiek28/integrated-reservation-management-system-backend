@@ -11,7 +11,6 @@ public final class PersonalDataConverter {
                 .firstName(personalDataEntity.getFirstName())
                 .lastName(personalDataEntity.getLastName())
                 .phoneNumber(personalDataEntity.getPhoneNumber())
-                .email(personalDataEntity.getEmail())
                 .build();
     }
 
@@ -21,7 +20,6 @@ public final class PersonalDataConverter {
                 .firstName(personalDataModel.getFirstName())
                 .lastName(personalDataModel.getLastName())
                 .phoneNumber(personalDataModel.getPhoneNumber())
-                .email(personalDataModel.getEmail())
                 .build();
     }
 }

@@ -1,4 +1,4 @@
-package com.uliasz.irms.backend.users;
+package com.uliasz.irms.backend.rest.services;
 
 import com.uliasz.irms.internal.database.entities.AppUserEntity;
 import com.uliasz.irms.internal.database.repositories.AppUserRepository;

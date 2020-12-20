@@ -1,4 +1,4 @@
-package com.uliasz.irms.admin.visitDetails;
+package com.uliasz.irms.admin.rest.services;
 
 import com.uliasz.irms.internal.common.models.VisitDetailsModel;
 import com.uliasz.irms.internal.common.services.VisitDetailsDataAccessService;

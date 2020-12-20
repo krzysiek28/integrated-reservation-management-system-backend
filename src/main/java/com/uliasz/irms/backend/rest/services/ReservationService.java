@@ -1,4 +1,4 @@
-package com.uliasz.irms.backend.reservations;
+package com.uliasz.irms.backend.rest.services;
 
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;

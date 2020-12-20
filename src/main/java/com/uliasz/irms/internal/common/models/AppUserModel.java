@@ -1,5 +1,6 @@
 package com.uliasz.irms.internal.common.models;
 
+import com.uliasz.irms.internal.common.enums.UserRoles;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ public class AppUserModel {
     private String login;
     private String password;
     private PersonalDataModel personalData;
-    private String role;
+    private UserRoles role;
     private Boolean enabled;
+    private String email;
 }

@@ -1,5 +1,6 @@
-package com.uliasz.irms.backend.reservations;
+package com.uliasz.irms.backend.rest.controllers;
 
+import com.uliasz.irms.backend.rest.services.ReservationService;
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reservationsApi")
-@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class ReservationController {
 
@@ -28,6 +28,10 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.updateReservationStatus(reservationId, status));
     }
 
+    //way to delete reservation by name lastName and phoneNumber
+
+
+    //only for login users
     @DeleteMapping(value = "/reservation/{id}")
     public ResponseEntity<Long> deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);

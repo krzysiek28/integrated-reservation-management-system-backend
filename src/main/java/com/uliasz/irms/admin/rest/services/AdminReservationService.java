@@ -1,4 +1,4 @@
-package com.uliasz.irms.admin.reservations;
+package com.uliasz.irms.admin.rest.services;
 
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import com.uliasz.irms.internal.common.providers.ReservationProvider;

@@ -1,5 +1,6 @@
-package com.uliasz.irms.admin.visitDetails;
+package com.uliasz.irms.admin.rest.controllers;
 
+import com.uliasz.irms.admin.rest.services.AdminVisitDetailsService;
 import com.uliasz.irms.internal.common.models.VisitDetailsModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/adminVisitDetailsApi")
-@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AdminVisitDetailsController {
 

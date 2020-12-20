@@ -1,5 +1,6 @@
-package com.uliasz.irms.backend.users;
+package com.uliasz.irms.backend.rest.controllers;
 
+import com.uliasz.irms.backend.users.TextModel;
 import com.uliasz.irms.internal.database.entities.TestEntity;
 import com.uliasz.irms.internal.database.repositories.TestRepository;
 import lombok.RequiredArgsConstructor;

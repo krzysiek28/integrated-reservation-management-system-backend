@@ -1,5 +1,6 @@
-package com.uliasz.irms.admin.reservations;
+package com.uliasz.irms.admin.rest.controllers;
 
+import com.uliasz.irms.admin.rest.services.AdminReservationService;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/adminReservationsApi")
-@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AdminReservationController {
 
