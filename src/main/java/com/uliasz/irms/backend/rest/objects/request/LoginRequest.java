@@ -1,11 +1,10 @@
 package com.uliasz.irms.backend.rest.objects.request;
 
-import com.sun.istack.NotNull;
-import lombok.Value;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
-@Value
+@Data
 public class LoginRequest {
     @NotBlank
     private String userName;

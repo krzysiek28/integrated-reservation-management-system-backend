@@ -1,6 +1,7 @@
 package com.uliasz.irms.security.jwt;
 
 import com.uliasz.irms.internal.database.entities.AppUserEntity;
+import com.uliasz.irms.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,9 +21,9 @@ public class JWTService {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
-        AppUserEntity userPrincipal = (AppUserEntity) authentication.getPrincipal();
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
-                .setSubject((userPrincipal.getLogin()))
+                .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

@@ -1,7 +1,7 @@
 package com.uliasz.irms.internal.common.enums;
 
 public enum UserRoles {
-    USER("USER_ROLE"), ADMIN("ADMIN_ROLE");
+    USER("ROLE_USER"), ADMIN("ROLE_ADMIN");
 
     private String value;
 

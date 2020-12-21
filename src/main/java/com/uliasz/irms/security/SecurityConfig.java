@@ -73,24 +73,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.cors();
-//        http.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers(HOME_PAGE_URL, LOGIN_URL, REGISTRATION_URL,
-//                "/testApi/tests", "/reservationsApi/*"
-//                ).permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic();
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("javatechie").password("{noop}jt143").roles("USER");
-//    }
-//
 }

@@ -1,13 +1,12 @@
 package com.uliasz.irms.backend.rest.objects.request;
 
-import com.sun.istack.NotNull;
-import lombok.Value;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Value
+@Data
 public class RegisterRequest {
     @NotBlank
     @Size(min = 3, max = 20)
