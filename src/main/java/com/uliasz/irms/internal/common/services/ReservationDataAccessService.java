@@ -55,7 +55,7 @@ public class ReservationDataAccessService {
             log.warn(String.format("Cannot delete reservation with id: %d, because did not exist", id));
             throw new ReservationNotFoundException(id);
         }
-        log.info(String.format("Reservation with id: %d was removed"));
+        log.info(String.format("Reservation with id: %d was removed", id));
         reservationRepository.deleteById(id);
     }
 }

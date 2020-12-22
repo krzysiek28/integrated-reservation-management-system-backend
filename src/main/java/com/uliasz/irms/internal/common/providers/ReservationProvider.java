@@ -4,11 +4,13 @@ import com.uliasz.irms.internal.common.converters.ReservationConverter;
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.exceptions.ReservationNotFoundException;
 import com.uliasz.irms.internal.common.models.ReservationModel;
+import com.uliasz.irms.internal.common.utils.DateUtil;
 import com.uliasz.irms.internal.database.entities.ReservationEntity;
 import com.uliasz.irms.internal.database.repositories.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,13 +34,27 @@ public class ReservationProvider {
                 .collect(Collectors.toList());
     }
 
+    public List<ReservationModel> getReservationsByDateRange(Date startDate, Date endDate) {
+        List<ReservationEntity> reservations = reservationRepository.findAll();
+        return reservations.stream()
+                .filter(res -> DateUtil.isDateBetween(res.getDate(), startDate, endDate))
+                .map(ReservationConverter::convertToModel)
+                .collect(Collectors.toList());
+    }
+
     public List<ReservationModel> getAvailableReservationsByDateRange(Date startDate, Date endDate) {
-        //todo fix by query
-//        List<ReservationEntity> reservations = reservationRepository.findByDateBetweenAndAvailableStatus(startDate, endDate, ReservationStatus.AVAILABLE.name());
         List<ReservationEntity> reservations = reservationRepository.findByStatus(ReservationStatus.AVAILABLE.name());
         return reservations.stream()
-                .filter(res -> res.getDate().after(startDate) && res.getDate().before(endDate))
+                .filter(res -> DateUtil.isDateBetween(res.getDate(), startDate, endDate))
                 .map(ReservationConverter::convertToModel)
+                .collect(Collectors.toList());
+    }
+
+    public List<ReservationModel> getReservationsByClosedStatus() {
+        return reservationRepository.findByStatus(ReservationStatus.CLOSED.name())
+                .stream()
+                .map(ReservationConverter::convertToModel)
+                .sorted(Comparator.comparing(ReservationModel::getDate).reversed())
                 .collect(Collectors.toList());
     }
 

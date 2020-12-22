@@ -19,4 +19,6 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     @Query("select r from ReservationEntity r where r.date >= :startDate and r.date <= :endDate and r.status = :status")
     List<ReservationEntity> findByDateBetweenAndAvailableStatus(@Param("startDate")Date startDate, @Param("endDate")Date endDate, @Param("status")String status);
 
+    @Query("select r from ReservationEntity r where r.date >= :startDate and r.date <= :endDate")
+    List<ReservationEntity> findByDateBetween(@Param("startDate")Date startDate, @Param("endDate")Date endDate);
 }
