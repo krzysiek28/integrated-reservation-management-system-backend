@@ -30,6 +30,10 @@ public class ReservationController {
 
     //way to delete reservation by name lastName and phoneNumber
 
+    @GetMapping(value = "/reservation/{id}")
+    public ResponseEntity<ReservationModel> getReservation(@PathVariable Long id) {
+        return ResponseEntity.ok(reservationService.getReservationById(id));
+    }
 
     //only for login users
     @DeleteMapping(value = "/reservation/{id}")

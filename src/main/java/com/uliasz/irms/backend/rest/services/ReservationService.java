@@ -25,8 +25,13 @@ public class ReservationService {
         return reservationDataAccessService.updateReservationStatus(reservationId, status);
     }
 
+    public ReservationModel getReservationById(Long id) {
+        return reservationProvider.getReservationById(id);
+    }
+
     /**
      * Delete reservation from database.
+     *
      * @param id
      */
     public void deleteReservation(Long id) {

@@ -42,15 +42,7 @@ public final class DateUtil {
     }
 
     public static boolean isDateBetween(Date date, Date startDate, Date endDate) {
-        boolean yearsBetween = date.getYear() > startDate.getYear() && date.getYear() < endDate.getYear();
-        boolean monthBetween = date.getMonth() > startDate.getMonth() && date.getMonth() < endDate.getMonth();
-        boolean dateBetween = date.getDate() > startDate.getDate() && date.getDate() < endDate.getDate();
-
-        boolean yearsEquals = date.getYear() == startDate.getYear();
-        boolean monthEquals = date.getMonth() == startDate.getMonth();
-        boolean dateEquals = date.getDate() == startDate.getDate();
-
-        return yearsBetween || (yearsEquals && monthBetween) || (yearsEquals && monthEquals && (dateBetween || dateEquals));
+        return isDateAfter(date, startDate) && isDateBefore(date, endDate);
     }
 
     public static boolean isTimeAfter(Date time, String timeAfterToCompare){
