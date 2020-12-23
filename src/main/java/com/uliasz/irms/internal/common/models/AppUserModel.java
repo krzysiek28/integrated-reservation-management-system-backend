@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class AppUserModel {
     private Long id;
     private String login;
-    private String password;
     private PersonalDataModel personalData;
     private UserRoles role;
     private Boolean enabled;

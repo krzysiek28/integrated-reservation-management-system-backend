@@ -1,23 +1,24 @@
 package com.uliasz.irms.backend.rest.services;
 
-import com.uliasz.irms.internal.database.entities.AppUserEntity;
-import com.uliasz.irms.internal.database.repositories.AppUserRepository;
+import com.uliasz.irms.internal.common.models.AppUserModel;
+import com.uliasz.irms.internal.common.models.PersonalDataModel;
+import com.uliasz.irms.internal.common.providers.AppUserProvider;
+import com.uliasz.irms.internal.common.services.AppUserDataAccessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AppUserService {
 
-    private final AppUserRepository appUserRepository;
+    private final AppUserProvider appUserProvider;
+    private final AppUserDataAccessService appUserDataAccessService;
 
-    public List<AppUserEntity> getAppUsers() {
-        return appUserRepository.findAll();
+    public AppUserModel getUserById(Long id) {
+        return appUserProvider.getUserById(id);
     }
 
-    public void saveUser(AppUserEntity entity) {
-        appUserRepository.save(entity);
+    public AppUserModel updateUserPersonalData(Long id, PersonalDataModel personalDataModel) {
+        return appUserDataAccessService.updateUserPersonalData(id, personalDataModel);
     }
 }

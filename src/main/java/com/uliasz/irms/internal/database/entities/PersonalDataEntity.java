@@ -24,4 +24,5 @@ public class PersonalDataEntity {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String email;
 }

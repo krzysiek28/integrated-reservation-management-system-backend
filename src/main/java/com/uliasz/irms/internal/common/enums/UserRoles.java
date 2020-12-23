@@ -12,4 +12,13 @@ public enum UserRoles {
     public String getValue() {
         return this.value;
     }
+
+    public static UserRoles getByValue(String value) {
+        for (UserRoles role : UserRoles.values()) {
+            if (role.getValue().equals(value)) {
+                return role;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 }
