@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -63,7 +62,7 @@ public class AdminReservationService {
         reservationDataAccessService.deleteReservation(id);
     }
 
-    public List<ReservationModel> getClosedReservations() {
-        return reservationProvider.getReservationsByClosedStatus();
+    public List<ReservationModel> getClosedReservationsFomLastMonth() {
+        return reservationProvider.getReservationsForLastMonthWithClosedStatus();
     }
 }

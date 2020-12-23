@@ -17,6 +17,30 @@ public final class DateUtil {
         }
     }
 
+    public static boolean isDateAfter(Date date, Date dateAfterToCompare) {
+        boolean yearsAfter = date.getYear() > dateAfterToCompare.getYear();
+        boolean monthAfter = date.getMonth() > dateAfterToCompare.getMonth();
+        boolean dateAfter = date.getDate() > dateAfterToCompare.getDate();
+
+        boolean yearsEquals = date.getYear() == dateAfterToCompare.getYear();
+        boolean monthEquals = date.getMonth() == dateAfterToCompare.getMonth();
+        boolean dateEquals = date.getDate() == dateAfterToCompare.getDate();
+
+        return yearsAfter || (yearsEquals && monthAfter) || (yearsEquals && monthEquals && (dateAfter || dateEquals));
+    }
+
+    public static boolean isDateBefore(Date date, Date dateBeforeToCompare) {
+        boolean yearsBefore = date.getYear() < dateBeforeToCompare.getYear();
+        boolean monthBefore = date.getMonth() < dateBeforeToCompare.getMonth();
+        boolean dateBefore = date.getDate() < dateBeforeToCompare.getDate();
+
+        boolean yearsEquals = date.getYear() == dateBeforeToCompare.getYear();
+        boolean monthEquals = date.getMonth() == dateBeforeToCompare.getMonth();
+        boolean dateEquals = date.getDate() == dateBeforeToCompare.getDate();
+
+        return yearsBefore || (yearsEquals && monthBefore) || (yearsEquals && monthEquals && (dateBefore || dateEquals));
+    }
+
     public static boolean isDateBetween(Date date, Date startDate, Date endDate) {
         boolean yearsBetween = date.getYear() > startDate.getYear() && date.getYear() < endDate.getYear();
         boolean monthBetween = date.getMonth() > startDate.getMonth() && date.getMonth() < endDate.getMonth();

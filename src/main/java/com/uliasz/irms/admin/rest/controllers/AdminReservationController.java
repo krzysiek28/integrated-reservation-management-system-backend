@@ -44,8 +44,8 @@ public class AdminReservationController {
         return ResponseEntity.ok(id);
     }
 
-    @GetMapping(value = "/getClosedReservations")
-    public ResponseEntity<List<ReservationModel>> getClosedReservations() {
-        return ResponseEntity.ok(adminReservationService.getClosedReservations());
+    @GetMapping(value = "/getClosedReservationsForLastMonth")
+    public ResponseEntity<List<ReservationModel>> getClosedReservationsForLastMonth() {
+        return ResponseEntity.ok(adminReservationService.getClosedReservationsFomLastMonth());
     }
 }

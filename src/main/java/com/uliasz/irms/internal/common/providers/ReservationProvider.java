@@ -10,10 +10,7 @@ import com.uliasz.irms.internal.database.repositories.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -50,12 +47,20 @@ public class ReservationProvider {
                 .collect(Collectors.toList());
     }
 
-    public List<ReservationModel> getReservationsByClosedStatus() {
+    public List<ReservationModel> getReservationsForLastMonthWithClosedStatus() {
+        Date dateMinusOneMonth = getDateMinusMonth();
         return reservationRepository.findByStatus(ReservationStatus.CLOSED.name())
                 .stream()
+                .filter(reservationEntity -> DateUtil.isDateAfter(reservationEntity.getDate(), dateMinusOneMonth))
                 .map(ReservationConverter::convertToModel)
                 .sorted(Comparator.comparing(ReservationModel::getDate).reversed())
                 .collect(Collectors.toList());
+    }
+
+    private Date getDateMinusMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        return cal.getTime();
     }
 
     public List<ReservationModel> getAvailableReservationsByDate(Date date) {
