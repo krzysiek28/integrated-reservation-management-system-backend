@@ -20,6 +20,7 @@ public final class PersonalDataConverter {
                 .id(personalDataModel.getId())
                 .firstName(personalDataModel.getFirstName())
                 .lastName(personalDataModel.getLastName())
+                .phoneNumber(personalDataModel.getPhoneNumber())
                 .email(personalDataModel.getContactEmail())
                 .build();
     }

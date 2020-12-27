@@ -6,6 +6,7 @@ import com.uliasz.irms.internal.common.exceptions.UserNotFountException;
 import com.uliasz.irms.internal.common.models.AppUserModel;
 import com.uliasz.irms.internal.common.models.PersonalDataModel;
 import com.uliasz.irms.internal.database.entities.AppUserEntity;
+import com.uliasz.irms.internal.database.entities.PersonalDataEntity;
 import com.uliasz.irms.internal.database.repositories.AppUserRepository;
 import com.uliasz.irms.internal.database.repositories.PersonalDataRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,10 @@ public class AppUserDataAccessService {
         }
         AppUserEntity user = userOpt.get();
 
-        user.setPersonalData(PersonalDataConverter.convertToEntity(personalDataModel));
+
+        PersonalDataEntity personalData = PersonalDataConverter.convertToEntity(personalDataModel);
+        personalDataRepository.save(personalData);
+        user.setPersonalData(personalData);
         return AppUserConverter.convertToModel(appUserRepository.save(user));
     }
 }
