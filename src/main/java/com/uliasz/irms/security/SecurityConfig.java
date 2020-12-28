@@ -61,8 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers(AUTH_API ,HOME_PAGE_URL, LOGIN_URL, REGISTRATION_URL, RESERVATIONS_URL, "/testApi/tests").permitAll()
-                .antMatchers("/api/test/**").permitAll()
+                .authorizeRequests().antMatchers(AUTH_API, LOGIN_URL, REGISTRATION_URL, RESERVATIONS_URL,
+                "/reservationsApi/availableReservationsByDateRange",
+                "/reservationsApi/reservation/{id}",
+                "/reservationsApi/reserve/{id}").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

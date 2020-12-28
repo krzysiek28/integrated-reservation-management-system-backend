@@ -1,6 +1,5 @@
 package com.uliasz.irms.security.jwt;
 
-import com.uliasz.irms.internal.database.entities.AppUserEntity;
 import com.uliasz.irms.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;

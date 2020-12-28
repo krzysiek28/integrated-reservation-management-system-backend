@@ -1,5 +1,6 @@
 package com.uliasz.irms.backend.rest.controllers;
 
+import com.uliasz.irms.backend.rest.objects.request.ReserveRequest;
 import com.uliasz.irms.backend.rest.services.ReservationService;
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;
@@ -27,6 +28,12 @@ public class ReservationController {
     public ResponseEntity<ReservationModel> updateReservationStatus(@RequestParam Long reservationId, @RequestParam ReservationStatus status) {
         return ResponseEntity.ok(reservationService.updateReservationStatus(reservationId, status));
     }
+
+    @PutMapping(value = "/reserve/{id}")
+    public ResponseEntity<ReservationModel> reserve(@PathVariable Long id, @RequestBody ReserveRequest reserveRequest) {
+        return ResponseEntity.ok(reservationService.reserve(id, reserveRequest));
+    }
+
 
     //way to delete reservation by name lastName and phoneNumber
 

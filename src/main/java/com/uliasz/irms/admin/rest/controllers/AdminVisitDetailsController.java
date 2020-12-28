@@ -17,5 +17,4 @@ public class AdminVisitDetailsController {
     public ResponseEntity<VisitDetailsModel> addVisitDetails(@RequestBody VisitDetailsModel visitDetailsModel, @RequestParam Long reservationId) {
         return ResponseEntity.ok(adminVisitDetailsService.addVisitDetails(visitDetailsModel, reservationId));
     }
-
 }

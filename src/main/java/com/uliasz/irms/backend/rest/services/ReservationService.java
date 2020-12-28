@@ -1,5 +1,6 @@
 package com.uliasz.irms.backend.rest.services;
 
+import com.uliasz.irms.backend.rest.objects.request.ReserveRequest;
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import com.uliasz.irms.internal.common.providers.ReservationProvider;
@@ -21,6 +22,10 @@ public class ReservationService {
         return reservationProvider.getAvailableReservationsByDateRange(startDate, endDate);
     }
 
+    public ReservationModel reserve(Long reservationId, ReserveRequest reserveRequest) {
+        return reservationDataAccessService.updateReservationByAdditionalInformation(reservationId, reserveRequest, ReservationStatus.RESERVED);
+    }
+
     public ReservationModel updateReservationStatus(Long reservationId, ReservationStatus status) {
         return reservationDataAccessService.updateReservationStatus(reservationId, status);
     }
@@ -29,13 +34,7 @@ public class ReservationService {
         return reservationProvider.getReservationById(id);
     }
 
-    /**
-     * Delete reservation from database.
-     *
-     * @param id
-     */
     public void deleteReservation(Long id) {
         reservationDataAccessService.deleteReservation(id);
     }
-
 }
