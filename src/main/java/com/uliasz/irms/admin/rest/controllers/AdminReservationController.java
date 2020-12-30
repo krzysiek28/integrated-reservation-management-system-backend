@@ -51,7 +51,7 @@ public class AdminReservationController {
     }
 
     @PatchMapping(value = "/changeStatus/{id}")
-    public ResponseEntity<ReservationModel> changeStatusToClosed(@PathVariable Long id, @RequestBody ReservationStatus status) {
+    public ResponseEntity<ReservationModel> changeStatusToClosed(@PathVariable Long id, @RequestBody String status) {
         return ResponseEntity.ok(adminReservationService.changeReservationStatus(id, status));
     }
 }

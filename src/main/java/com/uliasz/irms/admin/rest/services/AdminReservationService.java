@@ -66,7 +66,7 @@ public class AdminReservationService {
         return reservationProvider.getReservationsForLastMonthWithClosedStatus();
     }
 
-    public ReservationModel changeReservationStatus(Long reservationId, ReservationStatus status) {
-        return reservationDataAccessService.updateReservationStatus(reservationId, status);
+    public ReservationModel changeReservationStatus(Long reservationId, String status) {
+        return reservationDataAccessService.updateReservationStatus(reservationId, ReservationStatus.getByValue(status));
     }
 }
