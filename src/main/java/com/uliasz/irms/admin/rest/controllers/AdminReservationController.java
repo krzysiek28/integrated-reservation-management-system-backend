@@ -2,6 +2,7 @@ package com.uliasz.irms.admin.rest.controllers;
 
 import com.uliasz.irms.admin.rest.objects.ReservationSearchRequest;
 import com.uliasz.irms.admin.rest.services.AdminReservationService;
+import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +48,10 @@ public class AdminReservationController {
     @GetMapping(value = "/getClosedReservationsForLastMonth")
     public ResponseEntity<List<ReservationModel>> getClosedReservationsForLastMonth() {
         return ResponseEntity.ok(adminReservationService.getClosedReservationsFomLastMonth());
+    }
+
+    @PatchMapping(value = "/changeStatus/{id}")
+    public ResponseEntity<ReservationModel> changeStatusToClosed(@PathVariable Long id, @RequestBody ReservationStatus status) {
+        return ResponseEntity.ok(adminReservationService.changeReservationStatus(id, status));
     }
 }

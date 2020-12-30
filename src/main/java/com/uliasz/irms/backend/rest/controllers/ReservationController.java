@@ -23,12 +23,6 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.getAvailableReservationsByDateRange(startDate, endDate));
     }
 
-    //todo do usunięcie, trzeba całe encje modyfikować kto rezerwuje,
-    @PutMapping(value = "/updateReservationStatus")
-    public ResponseEntity<ReservationModel> updateReservationStatus(@RequestParam Long reservationId, @RequestParam ReservationStatus status) {
-        return ResponseEntity.ok(reservationService.updateReservationStatus(reservationId, status));
-    }
-
     @PutMapping(value = "/reserve/{id}")
     public ResponseEntity<ReservationModel> reserve(@PathVariable Long id, @RequestBody ReserveRequest reserveRequest) {
         return ResponseEntity.ok(reservationService.reserve(id, reserveRequest));
@@ -42,7 +36,6 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.getReservationById(id));
     }
 
-    //only for login users
     @DeleteMapping(value = "/reservation/{id}")
     public ResponseEntity<Long> deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);

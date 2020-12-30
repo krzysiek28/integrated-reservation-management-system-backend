@@ -65,4 +65,8 @@ public class AdminReservationService {
     public List<ReservationModel> getClosedReservationsFomLastMonth() {
         return reservationProvider.getReservationsForLastMonthWithClosedStatus();
     }
+
+    public ReservationModel changeReservationStatus(Long reservationId, ReservationStatus status) {
+        return reservationDataAccessService.updateReservationStatus(reservationId, status);
+    }
 }

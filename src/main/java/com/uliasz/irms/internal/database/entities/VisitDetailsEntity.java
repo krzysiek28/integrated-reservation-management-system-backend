@@ -23,6 +23,5 @@ public class VisitDetailsEntity {
     @GeneratedValue
     private Long id;
     private String note;
-    private String visitStatus;
     private BigDecimal cost;
 }
