@@ -4,9 +4,9 @@ import com.uliasz.irms.backend.rest.objects.request.ReserveRequest;
 import com.uliasz.irms.internal.common.converters.PersonalDataConverter;
 import com.uliasz.irms.internal.common.converters.ReservationConverter;
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
+import com.uliasz.irms.internal.common.exceptions.PersonalDataNotFoundException;
 import com.uliasz.irms.internal.common.exceptions.ReservationNotFoundException;
 import com.uliasz.irms.internal.common.exceptions.UserNotFountException;
-import com.uliasz.irms.internal.common.models.PersonalDataModel;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import com.uliasz.irms.internal.database.entities.AppUserEntity;
 import com.uliasz.irms.internal.database.entities.PersonalDataEntity;
@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +40,13 @@ public class ReservationDataAccessService {
         return ReservationConverter.convertToModel(reservationRepository.save(ReservationConverter.convertToEntity(reservationModel)));
     }
 
+    public List<ReservationModel> getOwnReservations(Long userId) {
+       return reservationRepository.findByUserId(userId).stream()
+               .map(ReservationConverter::convertToModel)
+               .sorted(Comparator.comparing(ReservationModel::getDate).reversed())
+               .collect(Collectors.toList());
+    }
+
     public ReservationModel updateReservationByAdditionalInformation(Long reservationId, ReserveRequest reserveRequest, ReservationStatus reservationStatus) {
         Optional<ReservationEntity> reservation = reservationRepository.findById(reservationId);
         if (reservation.isEmpty()) {
@@ -58,7 +66,7 @@ public class ReservationDataAccessService {
     }
 
     private void setUserIfExist(Long userId, ReservationEntity reservationEntity) {
-        if(userId != null) {
+        if (userId != null) {
             Optional<AppUserEntity> userOpt = appUserRepository.findById(userId);
             if (userOpt.isEmpty()) {
                 log.warn(String.format("Cannot update user with id: %d, because did not exist", userId));
@@ -80,15 +88,6 @@ public class ReservationDataAccessService {
         return ReservationConverter.convertToModel(reservationRepository.save(reservationEntity));
     }
 
-    public ReservationModel updateReservation(ReservationModel reservationModel) {
-        Optional<ReservationEntity> reservation = reservationRepository.findById(reservationModel.getId());
-        if (reservation.isEmpty()) {
-            log.warn(String.format("Cannot update reservation with id: %d, because did not exist", reservationModel.getId()));
-            throw new ReservationNotFoundException(reservationModel.getId());
-        }
-        return ReservationConverter.convertToModel(reservationRepository.save(ReservationConverter.convertToEntity(reservationModel)));
-    }
-
     public void deleteReservation(Long id) {
         if (!reservationRepository.existsById(id)) {
             log.warn(String.format("Cannot delete reservation with id: %d, because did not exist", id));
@@ -97,4 +96,35 @@ public class ReservationDataAccessService {
         log.info(String.format("Reservation with id: %d was removed", id));
         reservationRepository.deleteById(id);
     }
+
+    public ReservationModel updateReservationStatusAndRemoveAdditionalInfo(Long reservationId, ReservationStatus reservationStatus) {
+        Optional<ReservationEntity> reservation = reservationRepository.findById(reservationId);
+        if (reservation.isEmpty()) {
+            log.warn(String.format("Cannot update reservation with id: %d, because did not exist", reservationId));
+            throw new ReservationNotFoundException(reservationId);
+        }
+
+        ReservationEntity reservationEntity = reservation.get();
+        reservationEntity.setStatus(reservationStatus.name());
+        reservationEntity.setComment(null);
+        reservationEntity.setPersonalData(null);
+        reservationEntity.setUser(null);
+
+        return ReservationConverter.convertToModel(reservationRepository.save(reservationEntity));
+    }
+
+/*    public void deletePersonalDataIfExist(ReservationEntity reservationEntity) {
+        PersonalDataEntity personalData = reservationEntity.getPersonalData();
+        if (personalData != null) {
+            Optional<PersonalDataEntity> personalDataOpt = personalDataRepository.findById(personalData.getId());
+            if (personalDataOpt.isEmpty()) {
+                log.warn(String.format("Cannot get reservation with id: %d, because did not exist", personalData.getId()));
+                throw new PersonalDataNotFoundException(personalData.getId());
+            }
+            reservationEntity.setPersonalData(null);
+            if (reservationEntity.getUser() != null) {
+                personalDataRepository.deleteById(personalData.getId());
+            }
+        }
+    }*/
 }

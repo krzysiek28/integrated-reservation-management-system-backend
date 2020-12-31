@@ -26,15 +26,15 @@ public class ReservationService {
         return reservationDataAccessService.updateReservationByAdditionalInformation(reservationId, reserveRequest, ReservationStatus.RESERVED);
     }
 
-    public ReservationModel updateReservationStatus(Long reservationId, ReservationStatus status) {
-        return reservationDataAccessService.updateReservationStatus(reservationId, status);
+    public ReservationModel changeReservationStatusAndRemoveAdditionalData(Long reservationId, String status) {
+        return reservationDataAccessService.updateReservationStatusAndRemoveAdditionalInfo(reservationId, ReservationStatus.getByValue(status));
     }
 
     public ReservationModel getReservationById(Long id) {
         return reservationProvider.getReservationById(id);
     }
 
-    public void deleteReservation(Long id) {
-        reservationDataAccessService.deleteReservation(id);
+    public List<ReservationModel> getOwnReservations(Long userId) {
+        return reservationDataAccessService.getOwnReservations(userId);
     }
 }

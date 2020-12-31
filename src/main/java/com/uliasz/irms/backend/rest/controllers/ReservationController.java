@@ -5,8 +5,10 @@ import com.uliasz.irms.backend.rest.services.ReservationService;
 import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
@@ -23,22 +25,26 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.getAvailableReservationsByDateRange(startDate, endDate));
     }
 
-    @PutMapping(value = "/reserve/{id}")
+    @PatchMapping(value = "/reserve/{id}")
     public ResponseEntity<ReservationModel> reserve(@PathVariable Long id, @RequestBody ReserveRequest reserveRequest) {
         return ResponseEntity.ok(reservationService.reserve(id, reserveRequest));
     }
 
+    @GetMapping(value = "/getOwnReservations")
+    public ResponseEntity<List<ReservationModel>> getOwnReservations(@RequestParam Long userId) {
+        return ResponseEntity.ok(reservationService.getOwnReservations(userId));
+    }
 
-    //way to delete reservation by name lastName and phoneNumber
+    @PatchMapping(value = "/changeStatus/{id}")
+    public ResponseEntity<ReservationModel> changeStatusToClosed(@PathVariable Long id, @RequestBody String status) {
+        if (!ReservationStatus.AVAILABLE.getValue().equals(status)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Cannot change status to something other than AVAILABLE for owned permission");
+        }
+        return ResponseEntity.ok(reservationService.changeReservationStatusAndRemoveAdditionalData(id, status));
+    }
 
     @GetMapping(value = "/reservation/{id}")
     public ResponseEntity<ReservationModel> getReservation(@PathVariable Long id) {
         return ResponseEntity.ok(reservationService.getReservationById(id));
-    }
-
-    @DeleteMapping(value = "/reservation/{id}")
-    public ResponseEntity<Long> deleteReservation(@PathVariable Long id) {
-        reservationService.deleteReservation(id);
-        return ResponseEntity.ok(id);
     }
 }
