@@ -41,8 +41,10 @@ public class ReservationProvider {
 
     public List<ReservationModel> getAvailableReservationsByDateRange(Date startDate, Date endDate) {
         List<ReservationEntity> reservations = reservationRepository.findByStatus(ReservationStatus.AVAILABLE.name());
+        Date today = new Date();
         return reservations.stream()
                 .filter(res -> DateUtil.isDateBetween(res.getDate(), startDate, endDate))
+                .filter(res -> DateUtil.isTimeAfter(res.getTimeFrom(), today))
                 .map(ReservationConverter::convertToModel)
                 .collect(Collectors.toList());
     }
@@ -62,22 +64,4 @@ public class ReservationProvider {
         cal.add(Calendar.MONTH, -1);
         return cal.getTime();
     }
-
-    public List<ReservationModel> getAvailableReservationsByDate(Date date) {
-        List<ReservationEntity> reservations = reservationRepository.findByDateAndStatus(date, ReservationStatus.AVAILABLE.name());
-        return reservations.stream()
-                .map(ReservationConverter::convertToModel)
-                .collect(Collectors.toList());
-    }
-
-    public boolean reservationIsAvailable(Long id) {
-        return ReservationStatus.AVAILABLE.equals(getReservationById(id).getStatus());
-    }
-
-//    public List<ReservationModel> getAvailableReservationsInMonth(Month month) {
-//        List<ReservationEntity> reservations = reservationRepository.findByDate(date);
-//        return reservations.stream()
-//                .map(ReservationConverter::convertToReservationModel)
-//                .collect(Collectors.toList());
-//    }
 }

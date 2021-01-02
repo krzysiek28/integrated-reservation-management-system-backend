@@ -22,3 +22,4 @@ public class AppUserService {
         return appUserDataAccessService.updateUserPersonalData(id, personalDataModel);
     }
 }
+
