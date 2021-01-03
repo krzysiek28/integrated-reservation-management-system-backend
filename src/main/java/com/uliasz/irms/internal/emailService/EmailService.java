@@ -46,7 +46,10 @@ public class EmailService {
         context.setVariable("header", "Zintegrowany system zarządzania rezerwacją");
         context.setVariable("title", "Zarezerwowano wizytę!");
         context.setVariable("description", "Dane dotyczące wizyty");
-        String body = templateEngine.process("reservation-email-template", context);
+        context.setVariable("reservationModel", reservationModel);
+        context.setVariable("personalDataModel", reservationModel.getPersonalData());
+        context.setVariable("visitDetailsModel", visitDetailsModel);
+        String body = templateEngine.process("visit-details-email-template", context);
         emailSender.sendEmail("krzysztof.uliasz@gmail.com", "Irms: Potwierdzenie rezerwacji", body);
         return "index";
     }

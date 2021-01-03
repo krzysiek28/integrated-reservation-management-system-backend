@@ -28,6 +28,7 @@ public class ReservationProvider {
         List<ReservationEntity> reservations = reservationRepository.findByDate(date);
         return reservations.stream()
                 .map(ReservationConverter::convertToModel)
+                .sorted(Comparator.comparing(ReservationModel::getDate).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -36,6 +37,7 @@ public class ReservationProvider {
         return reservations.stream()
                 .filter(res -> DateUtil.isDateBetween(res.getDate(), startDate, endDate))
                 .map(ReservationConverter::convertToModel)
+                .sorted(Comparator.comparing(ReservationModel::getDate).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -44,8 +46,9 @@ public class ReservationProvider {
         Date today = new Date();
         return reservations.stream()
                 .filter(res -> DateUtil.isDateBetween(res.getDate(), startDate, endDate))
-                .filter(res -> DateUtil.isTimeAfter(res.getTimeFrom(), today))
+                .filter(res -> DateUtil.isDateAfter(res.getDate(), getDatePlusDay(startDate)) || DateUtil.isTimeAfter(res.getTimeFrom(), today))
                 .map(ReservationConverter::convertToModel)
+                .sorted(Comparator.comparing(ReservationModel::getDate).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -62,6 +65,13 @@ public class ReservationProvider {
     private Date getDateMinusMonth() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -1);
+        return cal.getTime();
+    }
+
+    private Date getDatePlusDay(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, 1);
         return cal.getTime();
     }
 }
