@@ -6,6 +6,7 @@ import com.uliasz.irms.backend.rest.objects.response.JwtResponse;
 import com.uliasz.irms.backend.rest.objects.response.MessageResponse;
 import com.uliasz.irms.internal.database.entities.AppUserEntity;
 import com.uliasz.irms.internal.database.repositories.AppUserRepository;
+import com.uliasz.irms.internal.emailService.EmailService;
 import com.uliasz.irms.security.jwt.JWTService;
 import com.uliasz.irms.security.services.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class AuthController {
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
+    private final EmailService emailService;
 
     @PostMapping("/signIn")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -79,6 +81,7 @@ public class AuthController {
                 .build();
 
         appUserRepository.save(user);
+        emailService.sendSuccessfullyRegistrationMail(registerRequest.getEmail(), registerRequest.getUserName());
         return ResponseEntity.ok(new MessageResponse("Rejestracja zakończyła się pomyślnie!"));
     }
 }
