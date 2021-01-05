@@ -17,6 +17,14 @@ public final class DateUtil {
         }
     }
 
+    public static boolean isDateEquals(Date date, Date dateToCompare) {
+        boolean yearsEquals = date.getYear() == dateToCompare.getYear();
+        boolean monthEquals = date.getMonth() == dateToCompare.getMonth();
+        boolean dateEquals = date.getDate() == dateToCompare.getDate();
+
+        return yearsEquals && monthEquals && dateEquals;
+    }
+
     public static boolean isDateAfter(Date date, Date dateAfterToCompare) {
         boolean yearsAfter = date.getYear() > dateAfterToCompare.getYear();
         boolean monthAfter = date.getMonth() > dateAfterToCompare.getMonth();

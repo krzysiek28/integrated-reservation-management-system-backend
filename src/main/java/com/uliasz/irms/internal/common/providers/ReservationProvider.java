@@ -35,7 +35,8 @@ public class ReservationProvider {
     public List<ReservationEntity> getReservationsEntityByDateBeforeAndStatus(Date date, ReservationStatus status) {
         List<ReservationEntity> reservations = reservationRepository.findByStatus(status.getValue());
         return reservations.stream()
-                .filter(reservation -> DateUtil.isDateBefore(reservation.getDate(), date) && DateUtil.isTimeBefore(reservation.getTimeTo(), date))
+                .filter(reservation -> DateUtil.isDateBefore(reservation.getDate(), date) ||
+                        DateUtil.isDateEquals(reservation.getDate(), date) && DateUtil.isTimeBefore(reservation.getTimeTo(), date))
                 .collect(Collectors.toList());
     }
 
