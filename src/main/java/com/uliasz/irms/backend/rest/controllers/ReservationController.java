@@ -7,6 +7,7 @@ import com.uliasz.irms.internal.common.models.ReservationModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/reservationsApi")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 public class ReservationController {
 
     private final ReservationService reservationService;

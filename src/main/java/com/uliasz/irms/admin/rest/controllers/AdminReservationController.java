@@ -6,6 +6,7 @@ import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/adminReservationsApi")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminReservationController {
 
     private final AdminReservationService adminReservationService;
