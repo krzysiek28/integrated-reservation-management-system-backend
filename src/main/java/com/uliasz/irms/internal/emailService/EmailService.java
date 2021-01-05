@@ -43,14 +43,14 @@ public class EmailService {
 
     public String sendVisitInfoMail(String emailTo, VisitDetailsModel visitDetailsModel, ReservationModel reservationModel) {
         Context context = new Context();
-        context.setVariable("header", "Zintegrowany system zarządzania rezerwacją");
-        context.setVariable("title", "Zarezerwowano wizytę!");
+        context.setVariable("footer", "Zintegrowany system zarządzania rezerwacją");
+        context.setVariable("title", "Wystawiono notatkę do wizyty");
         context.setVariable("description", "Dane dotyczące wizyty");
         context.setVariable("reservationModel", reservationModel);
         context.setVariable("personalDataModel", reservationModel.getPersonalData());
         context.setVariable("visitDetailsModel", visitDetailsModel);
         String body = templateEngine.process("visit-details-email-template", context);
-        emailSender.sendEmail("krzysztof.uliasz@gmail.com", "Irms: Potwierdzenie rezerwacji", body);
+        emailSender.sendEmail("krzysztof.uliasz@gmail.com" /*emailTo*/, "Irms: Potwierdzenie rezerwacji", body);
         return "index";
     }
 }
