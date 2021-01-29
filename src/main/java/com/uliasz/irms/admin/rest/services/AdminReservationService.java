@@ -9,6 +9,7 @@ import com.uliasz.irms.internal.common.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,7 +56,10 @@ public class AdminReservationService {
         if(searchRequest.getTimeTo() != null) {
             reservations = reservations.stream().filter(reservationModel -> DateUtil.isTimeBefore(reservationModel.getTimeTo(), searchRequest.getTimeTo())).collect(Collectors.toList());
         }
-        return reservations;
+        return reservations.stream()
+                .sorted(Comparator.comparing(ReservationModel::getTimeFrom))
+                .sorted(Comparator.comparing(ReservationModel::getDate))
+                .collect(Collectors.toList());
     }
 
     public void deleteReservation(Long id) {

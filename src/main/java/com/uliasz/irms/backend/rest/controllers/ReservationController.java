@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/reservationsApi")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 public class ReservationController {
 
     private final ReservationService reservationService;
@@ -33,11 +32,13 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/getOwnReservations")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<ReservationModel>> getOwnReservations(@RequestParam Long userId) {
         return ResponseEntity.ok(reservationService.getOwnReservations(userId));
     }
 
     @PatchMapping(value = "/changeStatus/{id}")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<ReservationModel> changeStatusToClosed(@PathVariable Long id, @RequestBody String status) {
         if (!ReservationStatus.AVAILABLE.getValue().equals(status)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Cannot change status to something other than AVAILABLE for owned permission");

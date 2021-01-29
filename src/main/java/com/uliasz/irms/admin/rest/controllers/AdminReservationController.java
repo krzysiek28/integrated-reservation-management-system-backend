@@ -2,7 +2,6 @@ package com.uliasz.irms.admin.rest.controllers;
 
 import com.uliasz.irms.admin.rest.objects.ReservationSearchRequest;
 import com.uliasz.irms.admin.rest.services.AdminReservationService;
-import com.uliasz.irms.internal.common.enums.ReservationStatus;
 import com.uliasz.irms.internal.common.models.ReservationModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

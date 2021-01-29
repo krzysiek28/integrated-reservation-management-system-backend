@@ -56,7 +56,7 @@ public class ReservationProvider {
                 .filter(res -> DateUtil.isDateBetween(res.getDate(), startDate, endDate))
                 .filter(res -> DateUtil.isDateAfter(res.getDate(), getDatePlusDay(startDate)) || DateUtil.isTimeAfter(res.getTimeFrom(), today))
                 .map(ReservationConverter::convertToModel)
-                .sorted(Comparator.comparing(ReservationModel::getDate).reversed())
+                .sorted(Comparator.comparing(ReservationModel::getDate))
                 .collect(Collectors.toList());
     }
 
